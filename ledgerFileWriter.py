@@ -6,9 +6,9 @@ filepath = ""
 def setFilePath(path):
     filepath = path
 
-def writeToJournal(partyA="",partyB ="",description="",amount=""):
+def writeToJournal(string):
     with open(filepath, "a") as file:
-        file.write()
+        file.write(string)
         file.close()
 
 def __getCurrDate__():
@@ -48,6 +48,10 @@ class Transaction:
                 "comment":""
             }
         }
+        
+    def minimalSave(self):
+        writeToJournal(minimalStringGen())
+    
     def easyTransact(self,description="",accountNameA="",accountNameB="",amountA=0,currency="€",date = __getCurrDate__(),amountB=None):
         if amountB == None:
             amountB = -amountA
@@ -62,7 +66,7 @@ class Transaction:
         self.data["postingB"]["currency"] =currency
         self.data["postingB"]["amount"] =amountB
     
-    def generateSmallString(self):
+    def minimalStringGen(self):
         stringA= self.data["date"] + " " +self.data["description"] + "\n"
         stringB="    "+self.data["postingA"]["name"] + "    "+ self.data["postingA"]["currency"]+self.data["postingA"]["amount"]+ "\n"
         stringC="    "+self.data["postingB"]["name"] + "    "+ self.data["postingB"]["currency"]+self.data["postingB"]["amount"]+ "\n \n"
